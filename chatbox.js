@@ -1,58 +1,66 @@
-const messages = [
-  {
-    username: "Joffrey",
-    text: "Brilliant",
-    created_at: new Date(2018, 2, 10, 9, 50)
-  },
-  {
-    username: "NINJA",
-    text: "Great resource, thanks",
-    created_at: new Date(2018, 2, 10, 9, 55)
-  },
-  {
-    username: "i am mister brilliant",
-    text: "THANKSSSS!!!!!",
-    created_at: new Date(2018, 2, 10, 10, 10)
-  },
-  {
-    username: "martin57",
-    text: "Thanks Peter",
-    created_at: new Date(2018, 2, 10, 10, 19)
-  },
-  {
-    username: "patricia",
-    text: "Sounds good to me!",
-    created_at: new Date(2018, 2, 10, 10, 22)
-  },
-]
+// const fullContent = chatbox.forEach((content) => {
+//   // console.log(content);
+// });
+
+// const refreshBtn = document.querySelector('#refresh');
+const messages = document.querySelector('#message-list');
+const form = document.querySelector('#comment-form');
+const content = document.querySelector('#your-message');
+
+
+const baseUrl = "https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=haQE4Q8KUxHg";
 
 init();
 
 function init(){
   renderMessages();
-  document.querySelector(".btn").onclick = addNewMessage;
 };
 
+// GET Request
 function renderMessages(){
-  document.querySelector(".messages").innerHTML = messages.map(function(message) {
-    return `
-    <li>
-      <p>${message.username}</p>
-      <p><strong>${message.text}</strong></p>
-      <p>${message.created_at.getDate()} ${message.created_at.toLocaleString('default', { month: 'short' })} ${message.created_at.getFullYear()} ${message.created_at.getHours()} : ${message.created_at.getMinutes()}</p>
-    </li>`
-  }).join("");
+  fetch(baseUrl)
+  .then(response => response.json())
+  .then((data) => {
+    // console.log(data);
+     messages.innerHTML  = data.map(msg => {
+        return `<li><strong>${msg.author}:</strong> ${msg.message}</li>`;
+      }).join("");
+  });
 };
 
-function addNewMessage(){
-  const text = document.querySelector(".text-input").value
 
-  messages.push({
-    username: "me",
-    text: text,
-    created_at: new Date()
+// POST Request
+
+function postMessage (msg) {
+  // msg is a hash
+  fetch(baseUrl, {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(msg)
   })
-
-  renderMessages();
+    .then(response => response.json())
+    .then((data) => {
+      // console.log(data);
+      renderMessages()
+    });
 };
+
+
+form.addEventListener("submit", (event) => {
+  // console.log(event);
+  // prevent the default behavior of the form submission
+  // by default form will get re-directed to different page. Because we want to stay in one page, we need to prevent the default behaviour.
+  event.preventDefault();
+  const data = { "author": "nova", "message": content.value };
+  postMessage(data);
+});
+
+
+// Refresh page automaticaly
+// document.addEventListener("DOMContentLoaded", renderMessages);
+// setInterval(renderMessages, 5000);
+
+
+// refreshBtn.addEventListener("click", refreshChat);
+
 

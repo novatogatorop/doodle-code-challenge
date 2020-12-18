@@ -8,10 +8,19 @@
   </head>
   <body>
     <div class="container">
-      <div class="messages"></div>
-      <div class="form">
-        <input class="text-input" type="text">
-        <button class="btn">Submit</button>
+      <div class="chatroom">
+        <div class="messages">
+          <ul id="message-list">
+          </ul>
+        </div>
+        <div class="form">
+          <form action="#" id="comment-form">
+            <div class="form-group">
+              <input type="text" name="content" id="your-message" class="form-control">
+              <input type="submit" value="Send" class="">
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <script type="application/javascript" src="chatbox.js"></script>

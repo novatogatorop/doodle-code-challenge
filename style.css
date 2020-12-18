@@ -1,0 +1,90 @@
+:root {
+  /*FONT STYLE*/
+  --body-font: serif;
+
+  /*FONT WEIGHT*/
+  --heavy-fw: 700;
+  --light-fw: 300;
+
+  /*FONT SIZE*/
+  --f-base: 1rem;
+  --f-med: 1.5rem;
+  --f-lg: 2rem;
+
+  /*SPACERS*/
+  --space-sm: 0.5rem; //Change only this value
+  --space-med: 2 * $space-sm; // DO NOT CHANGE
+  --space-lg: 4 * $space-sm; // DO NOT CHANGE
+
+  /*GREY SCALE*/
+  --darkgrey: hsl(0, 0%, 13%);
+  --normalgrey: hsl(0, 0%, 45%);
+  --lightgrey: hsl(0, 0%, 90%);
+  --s-lightgrey: hsl(0, 0%, 98%);
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+*, *:before, *:after{
+  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  font-size: $f-base;
+  background-color: white;
+  font-family: --body-font;
+  font-weight: --light-fw;
+  line-height: 1.5;
+  color: --darkgrey;
+  letter-spacing: 0.05rem;
+}
+
+.container, .chatroom {
+  width: 100%;
+  height: calc(100% - 50px);
+}
+
+.chatroom {
+  margin: 50px auto;
+  width: 75%;
+  max-width: 600px;
+  display: grid;
+  grid-template-rows: auto 50px;
+  color: #111;
+  font: 14px Calibre, -apple-system, system-ui, "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+}
+
+.chatroom #message-list {
+  list-style: none;
+}
+
+.chatroom #message-list .author {
+  font-weight: 600;
+}
+
+.chatroom .form-group {
+  margin: 10px 0 0 0;
+  display: grid;
+  grid-template-columns: auto 100px;
+  grid-column-gap: 10px;
+}
+
+.chatroom .form-group input {
+  padding: 7px 10px;
+  border: 1px solid #666;
+  border-radius: 3px;
+  background: #fff;
+}
